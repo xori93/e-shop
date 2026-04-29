@@ -16,7 +16,7 @@
 
 import  type { Product } from '../types/Product'
 import { useCart } from "../context/useCart";
-
+import { Link } from 'react-router-dom';
 
 // // type props
 // This will define the structure or shape of the props this component expects. 
@@ -45,8 +45,14 @@ const ProductCard = ({ product }: Props) => {
   const { dispatch } = useCart();
   return (
     <div className='flex flex-col text-center items-center'>
-      <img src={product.image} alt={product.name} className='w-50'/>
+      <Link to={`/products/${product.id}`}>
+      <img 
+      src={`http://localhost:4000${product.image}`} 
+      alt={product.name} 
+      className='w-50'
+      />
       <h2>{product.name}</h2>
+    </Link>
       <p>${product.price}</p>
 
       <button
@@ -62,3 +68,5 @@ const ProductCard = ({ product }: Props) => {
 }
 
 export default ProductCard
+
+// OV08MvDW6ueujlrf

@@ -3,6 +3,7 @@ import Input from "./Input";
 import Button from "./Button";
 import type { AuthType, AuthFormData } from "../types/AuthType";
 import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "@/lib/supabaseClient";
 
 type Props = {
   type: AuthType;
@@ -16,7 +17,9 @@ const AuthForm = ({ type }: Props) => {
   });
 
   const [error, setError] = useState("");
-
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
   
   
@@ -28,7 +31,7 @@ const AuthForm = ({ type }: Props) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Basic validation
@@ -43,23 +46,62 @@ const AuthForm = ({ type }: Props) => {
       
     setError("");
 
+    setSuccess("");
+    setLoading(true);
+
     console.log(type, form);
 
-    if (type === "login"){
-      localStorage.setItem("user", JSON.stringify(form))
-      navigate("/cart")
+ if (type === "signup"){
+      const {error} = await supabase.auth.signUp({email: form.email, 
+        password: form.password,
+        options: {
+          data: {
+            username: form.username
+          }
+        }
+      })
+      setLoading(false);
+     if (error){
+      setError(error.message);
+      return;
+     } 
+     setSuccess("Account Created! Please check your email to confirm your account.")
+   
+
+      setForm({
+        email: "",
+        password: "",
+        username: "",
+      })
+
+      return;
     }
 
-    if (type === "signup"){
-      navigate("/login")
-    }
 
-    // Clear form
-    setForm({
-      username: "",
-      email: "",
-      password: "",
-    });
+
+   
+    if (type === "login") {
+      const {error} = await supabase.auth.signInWithPassword({
+        email: form.email,
+        password: form.password,
+      })
+     
+      setLoading(false);
+
+      if (error) {
+        setError(error.message);
+        return 
+      }
+
+      setForm({
+        email: "",
+        password: "",
+        username: "",
+      })
+
+       navigate("/cart");
+    }
+ 
 
 
 
@@ -99,8 +141,10 @@ const AuthForm = ({ type }: Props) => {
       />
 
       {error && <p className="text-red-500 mb-2">{error}</p>}
+  {success && <p className="text-green-500 mb-2">{success}</p>}
 
-      <Button text={type === "login" ? "Login" : "Sign Up"} />
+
+      <Button text={loading? "Loading.." : type === "login" ? "Login" : "Sign Up"} />
       {type === "login" && (
         <p className=" text-sm text-ceneter mt-4 text-center">
           Dont have an account?{" "}

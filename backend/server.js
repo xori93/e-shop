@@ -1,6 +1,15 @@
 import app from "./src/app.js";
-import "dotenv/config";
+import dotenv from "dotenv";
 
+dotenv.config();
+
+const port = process.env.PORT || 4000;
+
+console.log(port);
+
+app.listen(port, () => {
+  console.log(`server running ${port}`);
+});
 
 // app.get("/", (req, res) => {
 // res.send("Hello, Xori");
@@ -8,7 +17,7 @@ import "dotenv/config";
 
 // app.get("/product", (req, res) => {
 //   // creates a product object
-//   const product = { 
+//   const product = {
 //     id: 0,
 //     name: "Black Essential Hoodie",
 //     price: 60,
@@ -21,16 +30,8 @@ import "dotenv/config";
 //   res.send("hello world")
 // })
 
-
-
-
-
 //creates the serve and opens up a port like local host
 // console. log shows up in the terminal
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=> {console.log(`server running ${PORT}`);})
-
 
 //endpoint |  params |  query
 //amazon.com/category/shoes/children?limit=151

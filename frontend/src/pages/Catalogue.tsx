@@ -35,15 +35,19 @@ const [products, setProducts] = useState<Product[]>([]);
 
 useEffect(()=> {
   const getData = async () => {
-  const res = await fetch(`http://localhost:5000/products`);
-    const data = await res.json();
-    console.log("returing data")
-    console.log(data)
-    setProducts(data)
-  }
+    try {
+      const res = await fetch("http://localhost:4000/products");
+      const data = await res.json();
+      console.log("returing data")
+      console.log(data)
+      setProducts(data)
+    } catch (err) {
+      console.log("error fetching data:", err)
+    }
+  };
   //I want  to get all of the product data.
   getData()
-}, [])
+}, []);
 
 
   
@@ -77,9 +81,11 @@ useEffect(()=> {
       {/*  PRODUCTS GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center cursor-pointer ">
         {filterProducts.map((product) => (
-          <Link key={product.id} to={`/products/${product.id}`} className="hover:bg-stone-300 rounded-md p-5 shadow-sm">
+          <div key={product.id} className="hover:bg-stone-300 rounded-md p-5 shadow-sm">
+            
             <ProductCard  product={product} />
-          </Link>
+
+          </div>
         ))}
       </div>
     </div>

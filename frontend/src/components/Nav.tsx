@@ -4,7 +4,9 @@ import userlog from "../assets/user-interface.png";
 import { useCart } from "../context/useCart";
 import { useState, useEffect } from "react";
 import Hamburger from "hamburger-react";
-import Catalogue from "./../pages/Catalogue";
+import { supabase } from "../lib/supabaseClient";
+import type {User} from "@supabase/supabase-js"
+
 
 const Nav = () => {
   const { totalItems } = useCart();
@@ -13,24 +15,47 @@ const Nav = () => {
 
   const [isOpen, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
-  const [user, setUser] = useState<null | {
-    email?: string;
-    username?: string;
-  }>(null);
+
+
+  // const [user, setUser] = useState<null | {
+  //   email?: string;
+  //   username?: string;
+  // }>(null);
+
+  const [user, setUser] = useState< User | null>(null) 
+
+  
+  
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+
+  //   if (storedUser) {
+  //     setUser(JSON.parse(storedUser));
+  //   } else {
+  //     setUser(null);
+  //   }
+  // }, [dropdown]);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const getUser = async()=>{
+      const {data} = await supabase.auth.getUser();
+      setUser(data.user);
+    };
+    getUser();
 
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      setUser(null);
+    const {data: listener} = supabase.auth.onAuthStateChange(
+      (_event, session)=>{
+        setUser(session?.user ?? null);
+      }
+    )
+    return () =>{
+      listener.subscription.unsubscribe();
     }
-  }, [dropdown]);
+  }, [])
 
   // logout logic
-  const handleLogout = () => {
-    localStorage.removeItem("user");
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     setUser(null);
     setDropdown(false);
     navigate("/login");
@@ -39,6 +64,9 @@ const Nav = () => {
   return (
     <div className="flex justify-between py-8 px-8 items-center">
       <div className="relative flex gap-5">
+
+
+        
         <Hamburger toggled={isOpen} toggle={setOpen} />
         {isOpen && (
           <div className="absolute top-16 left-0 w-48 bg-white border rounded-lg shadow-lg p-3 flex flex-col gap-3 z-50">
