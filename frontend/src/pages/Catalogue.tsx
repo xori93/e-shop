@@ -35,7 +35,7 @@ const [products, setProducts] = useState<Product[]>([]);
 useEffect(()=> {
   const getData = async () => {
     try {
-      const res = await fetch("http://localhost:4000/products");
+     const res = await fetch(`${import.meta.env.VITE_API_URL}/products`);
       const data = await res.json();
       console.log("returing data")
       console.log(data)
