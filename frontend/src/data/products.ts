@@ -24,8 +24,6 @@
 
 import type { Product } from "../types/Product";
 import hoodie from "../assets/home-hoodie.png";
-import shirt from "../assets/t-shirt.jpg"
-
 //export const products
 
 // Breakdown:

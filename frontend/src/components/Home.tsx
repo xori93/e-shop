@@ -1,4 +1,3 @@
-import { div } from "framer-motion/client";
 import hoodie from "../assets/home-hoodie.png";
 import { products } from "../data/products";
 import { Link } from "react-router-dom";

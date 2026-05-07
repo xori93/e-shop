@@ -13,7 +13,6 @@
 import ProductCard from "../components/ProductCard";
 // import { products } from "../data/products";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 type Product = {
   id: number;
