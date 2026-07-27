@@ -23,7 +23,7 @@
 
 
 import type { Product } from "../types/Product";
-import hoodie from "../assets/home-hoodie.png";
+// import hoodie from "../assets/home-hoodie.png";
 //export const products
 
 // Breakdown:
@@ -43,7 +43,7 @@ export const products: Product[] = [
     id: 1,
     name: "Black Essential Hoodie",
     price: 60,
-    image: hoodie,
+    image: "/images/home-hoodie.png",
     category: "hoodies",
     description:
       "A premium black hoodie made from soft cotton blend fabric. Designed for everyday comfort with a relaxed fit and durable stitching.",
@@ -52,7 +52,7 @@ export const products: Product[] = [
     id: 2,
     name: "Classic White Tee",
     price: 40,
-    image: hoodie,
+    image: "/images/home-hoodie.png",
     category: "tshirts",
     description:
       "A clean and minimal white t-shirt made from breathable cotton. Perfect for layering or wearing on its own.",
@@ -61,7 +61,7 @@ export const products: Product[] = [
     id: 3,
     name: "Oversized Street Tee",
     price: 80,
-    image: hoodie,
+    image: "/images/home-hoodie.png",
     category: "tshirts",
     description:
       "A modern oversized t-shirt with a streetwear vibe. Features a relaxed fit and soft fabric for all-day comfort.",
@@ -70,7 +70,7 @@ export const products: Product[] = [
     id: 4,
     name: "Premium Heavyweight Tee",
     price: 60,
-    image: hoodie,
+    image: "/images/home-hoodie.png",
     category: "tshirts",
     description:
       "A durable heavyweight t-shirt built for structure and style. Holds its shape while giving a premium feel.",
@@ -79,7 +79,7 @@ export const products: Product[] = [
     id: 5,
     name: "Graphic Print Tee",
     price: 70,
-    image: hoodie,
+    image: "/images/home-hoodie.png",
     category: "tshirts",
     description:
       "A bold graphic t-shirt designed to stand out. Made with high-quality print and soft cotton fabric.",
