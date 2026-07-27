@@ -39,15 +39,13 @@ type Props =
   // // - product means we extract the product property from props
   // - : means Props which means we tell TypeScript what shape/structure  props follow. 
 
-
-
 const ProductCard = ({ product }: Props) => {
   const { dispatch } = useCart();
   return (
     <div className='flex flex-col text-center items-center'>
       <Link to={`/products/${product.id}`}>
       <img 
-      src={`http://localhost:4000${product.image}`} 
+      src={product.image} 
       alt={product.name} 
       className='w-50'
       />
