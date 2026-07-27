@@ -6,7 +6,7 @@ const products = [
     id: 1,
     name: "Black Essential Hoodie",
     price: 60,
-    image: "/assets/home-hoodie.png",
+    image: "/images/home-hoodie.png",
     category: "hoodies",
     description:
       "A premium black hoodie made from soft cotton blend fabric. Designed for everyday comfort with a relaxed fit and durable stitching.",
