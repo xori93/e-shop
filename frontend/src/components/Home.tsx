@@ -1,4 +1,4 @@
-import hoodie from "../assets/home-hoodie.png";
+// import hoodie from "../assets/home-hoodie.png";
 import { products } from "../data/products";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const Home = () => {
     <div className="bg-stone-200 min-h-screen flex justify-center items-center content-center">
        <div className="flex flex-col text-center text-xl ">
       <img
-        src={hoodie}
+        src="/images/home-hoodie.png"
         alt="Hoodie"
         className=" transform-3d rotate-y-180 animate-spin w-100 h-100"
       />
